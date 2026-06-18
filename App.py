@@ -11,7 +11,7 @@ thu_nhap = st.number_input(
     min_value=0.0,
     value=20_000_000.0,
     step=100_000.0,
-    format="%.0f"
+    format="%.2f"
 )
 
 so_nguoi_phu_thuoc = st.number_input(
