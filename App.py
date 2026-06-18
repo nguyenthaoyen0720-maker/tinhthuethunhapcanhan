@@ -1,28 +1,35 @@
-# Lãi đơn
-An = C * (1 + (i / 12) * n)
+import streamlit as st
 
-# Lãi kép
-Bn = C * (1 + i / 12) ** n
+st.title("💵 Ứng dụng tính thuế thu nhập cá nhân")
 
-# Tiền lãi nhận được
-lai_don = An - C
-lai_kep = Bn - C
+thu_nhap = st.number_input(
+    "Nhập thu nhập tính thuế (triệu đồng/tháng)",
+    min_value=0.0,
+    value=10.0
+)
 
-# Thuế TNCN (giả định 5% trên tiền lãi)
-thue_suat = 0.05
-thue_lai_don = lai_don * thue_suat
-thue_lai_kep = lai_kep * thue_suat
+if st.button("Tính thuế"):
 
-# Số tiền thực nhận sau thuế
-thuc_nhan_lai_don = An - thue_lai_don
-thuc_nhan_lai_kep = Bn - thue_lai_kep
+    if thu_nhap <= 5:
+        thue = thu_nhap * 0.05
 
-st.success("Kết quả tính toán")
+    elif thu_nhap <= 10:
+        thue = 0.25 + (thu_nhap - 5) * 0.10
 
-st.write(f"📌 Số tiền khách hàng nhận được theo lãi đơn: **{An:,.2f} triệu đồng**")
-st.write(f"📌 Thuế TNCN phải nộp (lãi đơn): **{thue_lai_don:,.2f} triệu đồng**")
-st.write(f"📌 Số tiền thực nhận sau thuế (lãi đơn): **{thuc_nhan_lai_don:,.2f} triệu đồng**")
+    elif thu_nhap <= 18:
+        thue = 0.75 + (thu_nhap - 10) * 0.15
 
-st.write(f"📌 Số tiền khách hàng nhận được theo lãi kép: **{Bn:,.2f} triệu đồng**")
-st.write(f"📌 Thuế TNCN phải nộp (lãi kép): **{thue_lai_kep:,.2f} triệu đồng**")
-st.write(f"📌 Số tiền thực nhận sau thuế (lãi kép): **{thuc_nhan_lai_kep:,.2f} triệu đồng**")
+    elif thu_nhap <= 32:
+        thue = 1.95 + (thu_nhap - 18) * 0.20
+
+    elif thu_nhap <= 52:
+        thue = 4.75 + (thu_nhap - 32) * 0.25
+
+    elif thu_nhap <= 80:
+        thue = 9.75 + (thu_nhap - 52) * 0.30
+
+    else:
+        thue = 18.15 + (thu_nhap - 80) * 0.35
+
+    st.success("Kết quả tính toán")
+    st.write(f"📌 Thuế TNCN phải nộp: **{thue:.2f} triệu đồng**")
