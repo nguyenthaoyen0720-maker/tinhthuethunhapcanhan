@@ -1,5 +1,5 @@
 import streamlit as st
-st.image("logo.jpg")
+st.image("Logo.jpg")
 st.title("Tính thuế thu nhập cá nhân - Đề tài 7 - Nguyễn Thị Thảo Yên")
 
 thu_nhap = st.number_input(
